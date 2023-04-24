@@ -1,9 +1,9 @@
 use wasm_bindgen::prelude::wasm_bindgen;
 
-use crate::calc_legal_places::calc_legal_places;
+use crate::{calc_legal_places::calc_legal_places, structs::Board};
 
 #[wasm_bindgen]
-pub fn can_put(black_stones: i64, white_stones: i64, current_color: isize, place: i64) -> bool {
-    let legal_places = calc_legal_places(black_stones, white_stones, current_color);
+pub fn can_put(board: &Board, place: u64) -> bool {
+    let legal_places = calc_legal_places(board);
     return (place & legal_places) == place;
 }

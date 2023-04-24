@@ -1,18 +1,17 @@
 use wasm_bindgen::prelude::wasm_bindgen;
 
-use crate::get_my_and_opponent_stones::get_my_and_opponent_stones;
+use crate::{get_my_and_opponent_stones::get_my_and_opponent_stones, structs::Board};
 
 #[wasm_bindgen]
-pub fn calc_legal_places(black_stones: i64, white_stones: i64, current_color: isize) -> i64 {
-    let (my_stones, opponent_stones) =
-        get_my_and_opponent_stones(black_stones, white_stones, current_color);
+pub fn calc_legal_places(board: &Board) -> u64 {
+    let (my_stones, opponent_stones) = get_my_and_opponent_stones(board);
 
-    let vertical_zeros: i64 = opponent_stones & 0x7e7e7e7e7e7e7e7e;
-    let horizontal_zeros: i64 = opponent_stones & 0x00FFFFFFFFFFFF00;
-    let all_edge_zeros: i64 = opponent_stones & 0x007e7e7e7e7e7e00;
-    let blank_places: i64 = !(my_stones | opponent_stones);
-    let mut tmp: i64;
-    let mut legal_places: i64;
+    let vertical_zeros: u64 = opponent_stones & 0x7e7e7e7e7e7e7e7e;
+    let horizontal_zeros: u64 = opponent_stones & 0x00FFFFFFFFFFFF00;
+    let all_edge_zeros: u64 = opponent_stones & 0x007e7e7e7e7e7e00;
+    let blank_places: u64 = !(my_stones | opponent_stones);
+    let mut tmp: u64;
+    let mut legal_places: u64;
 
     // Stand the bits where it can sandwitch opponent's stones from the left side
     tmp = vertical_zeros & (my_stones << 1);
@@ -85,11 +84,7 @@ mod tests {
             put_stones_count: 4,
             current_color: COLOR::BLACK,
         };
-        let legal_places = calc_legal_places(
-            board.black_stones,
-            board.white_stones,
-            board.current_color as isize,
-        );
+        let legal_places = calc_legal_places(&board);
         assert_eq!(legal_places, 0x0000080420100000);
 
         let board = Board {
@@ -98,11 +93,7 @@ mod tests {
             put_stones_count: 4,
             current_color: COLOR::WHITE,
         };
-        let legal_places = calc_legal_places(
-            board.black_stones,
-            board.white_stones,
-            board.current_color as isize,
-        );
+        let legal_places = calc_legal_places(&board);
         assert_eq!(legal_places, 0x0000102004080000);
 
         let board = Board {
@@ -111,11 +102,7 @@ mod tests {
             put_stones_count: 22,
             current_color: COLOR::BLACK,
         };
-        let legal_places = calc_legal_places(
-            board.black_stones,
-            board.white_stones,
-            board.current_color as isize,
-        );
+        let legal_places = calc_legal_places(&board);
         assert_eq!(legal_places, 0x30c8048000406038);
     }
 }
