@@ -1,16 +1,11 @@
 use wasm_bindgen::prelude::wasm_bindgen;
 
+use crate::get_my_and_opponent_stones::get_my_and_opponent_stones;
+
 #[wasm_bindgen]
 pub fn calc_legal_places(black_stones: i64, white_stones: i64, current_color: isize) -> i64 {
-    let my_stones: i64;
-    let opponent_stones: i64;
-    if current_color == 1 {
-        my_stones = black_stones;
-        opponent_stones = white_stones;
-    } else {
-        my_stones = white_stones;
-        opponent_stones = black_stones;
-    }
+    let (my_stones, opponent_stones) =
+        get_my_and_opponent_stones(black_stones, white_stones, current_color);
 
     let vertical_zeros: i64 = opponent_stones & 0x7e7e7e7e7e7e7e7e;
     let horizontal_zeros: i64 = opponent_stones & 0x00FFFFFFFFFFFF00;

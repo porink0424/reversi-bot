@@ -1,6 +1,8 @@
 mod calc_legal_places;
 mod can_put;
 mod enums;
+mod get_my_and_opponent_stones;
+mod put;
 mod structs;
 mod utils;
 
