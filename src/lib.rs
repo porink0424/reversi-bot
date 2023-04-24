@@ -1,5 +1,6 @@
 mod calc_legal_places;
 mod can_put;
+mod decide_place;
 mod enums;
 mod get_my_and_opponent_stones;
 mod has_game_ended;
