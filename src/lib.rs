@@ -1,4 +1,5 @@
 mod calc_legal_places;
+mod can_put;
 mod enums;
 mod structs;
 mod utils;
