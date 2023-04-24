@@ -2,6 +2,7 @@ mod calc_legal_places;
 mod can_put;
 mod enums;
 mod get_my_and_opponent_stones;
+mod has_game_ended;
 mod put;
 mod structs;
 mod utils;
