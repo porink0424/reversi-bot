@@ -1,11 +1,11 @@
 #[derive(PartialEq, Eq, Clone, Copy, Debug)]
 pub enum COLOR {
-    BLACK,
-    WHITE,
+    BLACK = 1 as isize,
+    WHITE = -1 as isize,
 }
 
 #[derive(PartialEq, Eq, Clone, Copy, Debug)]
 pub enum ACTION {
-    PUT(u64),
+    PUT(i64),
     PASS,
 }
