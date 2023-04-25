@@ -1,4 +1,4 @@
-use permutation_iterator::Permutor;
+use rand::seq::SliceRandom;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::{calc_legal_places::calc_legal_places, structs::Board};
@@ -6,11 +6,11 @@ use crate::{calc_legal_places::calc_legal_places, structs::Board};
 #[wasm_bindgen]
 pub fn decide_place(board: &Board) -> u64 {
     let legal_places = calc_legal_places(board);
-
-    let permutor = Permutor::new(64);
     let mask = 1;
-    for permuted in permutor {
-        let randomly_selected_place = (mask << permuted) & legal_places;
+    let mut range = (0..64).collect::<Vec<u8>>();
+    range.shuffle(&mut rand::thread_rng());
+    for shift in range {
+        let randomly_selected_place = (mask << shift) & legal_places;
         if randomly_selected_place != 0 {
             return randomly_selected_place;
         }

@@ -3,7 +3,7 @@ use wasm_bindgen::prelude::wasm_bindgen;
 use crate::enums::COLOR;
 
 #[wasm_bindgen]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct Board {
     pub black_stones: u64,
     pub white_stones: u64,
