@@ -1,86 +1,77 @@
-<div align="center">
+# reversi-bot
 
-  <h1><code>wasm-pack-template</code></h1>
+**Play "Reversi" with a simple, but reasonably strong AI!**
 
-  <strong>A template for kick starting a Rust and WebAssembly project using <a href="https://github.com/rustwasm/wasm-pack">wasm-pack</a>.</strong>
+<img align="right" src="https://user-images.githubusercontent.com/83964523/233449005-5fb8e0bb-45fb-435f-886d-9e6dee3a85ac.png" width="45%" />
 
-  <p>
-    <a href="https://travis-ci.org/rustwasm/wasm-pack-template"><img src="https://img.shields.io/travis/rustwasm/wasm-pack-template.svg?style=flat-square" alt="Build Status" /></a>
-  </p>
+- Demo - [Click Here](https://porinky0424.github.io/reversi-bot-front/)
 
-  <h3>
-    <a href="https://rustwasm.github.io/docs/wasm-pack/tutorials/npm-browser-packages/index.html">Tutorial</a>
-    <span> | </span>
-    <a href="https://discordapp.com/channels/442252698964721669/443151097398296587">Chat</a>
-  </h3>
+## Built with
 
-  <sub>Built with 🦀🕸 by <a href="https://rustwasm.github.io/">The Rust and WebAssembly Working Group</a></sub>
-</div>
+UI is built with:
 
-## About
+- [React](https://ja.reactjs.org/) with [TypeScript](https://www.typescriptlang.org/)
+- [Three.js](https://threejs.org/)
 
-[**📚 Read this template tutorial! 📚**][template-docs]
+AI is built with:
 
-This template is designed for compiling Rust libraries into WebAssembly and
-publishing the resulting package to NPM.
+- [Rust and WebAssembly](https://rustwasm.github.io/docs/book/)
 
-Be sure to check out [other `wasm-pack` tutorials online][tutorials] for other
-templates and usages of `wasm-pack`.
+JS files run wasm functions to calculate AI's thought, which are compiled from Rust code. See [reversi-bot-front](https://github.com/porinky0424/reversi-bot-front) for more details.
 
-[tutorials]: https://rustwasm.github.io/docs/wasm-pack/tutorials/index.html
-[template-docs]: https://rustwasm.github.io/docs/wasm-pack/tutorials/npm-browser-packages/index.html
+## To Update
 
-## 🚴 Usage
-
-### 🐑 Use `cargo generate` to Clone this Template
-
-[Learn more about `cargo generate` here.](https://github.com/ashleygwilliams/cargo-generate)
+When you update something in `./src` in this repository, you need to run:
 
 ```
-cargo generate --git https://github.com/rustwasm/wasm-pack-template.git --name my-project
-cd my-project
+sh build_and_copy.sh
 ```
 
-### 🛠️ Build with `wasm-pack build`
+to update `./www/src/pkg`.
+
+And then, you can run in `./www`:
 
 ```
-wasm-pack build
+yarn; yarn start
 ```
 
-### 🔬 Test in Headless Browsers with `wasm-pack test`
+to start the development server.
+
+## How We Built
+
+By running:
 
 ```
-wasm-pack test --headless --firefox
+cargo generate --git https://github.com/rustwasm/wasm-pack-template
 ```
 
-### 🎁 Publish to NPM with `wasm-pack publish`
+we created a new Rust project with wasm-pack template. Here we deleted `.git` and reinitialized it.
+
+At the time we implemented some logics in Rust, we ran:
 
 ```
-wasm-pack publish
+wasm-pack build --target web
 ```
 
-## 🔋 Batteries Included
+to compile Rust code into wasm with `build_and_copy.sh`. Then, we copied `./pkg` to `./www/src/pkg`. Now we can use wasm functions in JS. It is a bit tricky, but it works.
 
-* [`wasm-bindgen`](https://github.com/rustwasm/wasm-bindgen) for communicating
-  between WebAssembly and JavaScript.
-* [`console_error_panic_hook`](https://github.com/rustwasm/console_error_panic_hook)
-  for logging panic messages to the developer console.
-* [`wee_alloc`](https://github.com/rustwasm/wee_alloc), an allocator optimized
-  for small code size.
-* `LICENSE-APACHE` and `LICENSE-MIT`: most Rust projects are licensed this way, so these are included for you
+## What We Left
 
-## License
+- Improve UI (e.g. durable with the change of the window size, button sizes, etc.)
+- Use multithreading in Rust
 
-Licensed under either of
+## What We Struggled With
 
-* Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
-* MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
+- When we use `rand` crate in wasm, we need to specify the `features` in `Cargo.toml` like:
 
-at your option.
+```
+[dependencies]
+rand = { version = "0.6.1", features = ["wasm-bindgen"] }
+```
 
-### Contribution
+- When we do not use jekyll in GitHub Pages, we need to add `.nojekyll` file in root to avoid 404 error.
 
-Unless you explicitly state otherwise, any contribution intentionally
-submitted for inclusion in the work by you, as defined in the Apache-2.0
-license, shall be dual licensed as above, without any additional terms or
-conditions.
+## Reference
+
+- [Hello, World! - Rust and WebAssembly](https://rustwasm.github.io/docs/book/game-of-life/hello-world.html)
+- [Implementing Othello using a bit board](https://qiita.com/sensuikan1973/items/459b3e11d91f3cb37e43) (in Japanese)
