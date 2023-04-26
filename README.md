@@ -5,6 +5,7 @@
 <img align="right" src="https://user-images.githubusercontent.com/83964523/233449005-5fb8e0bb-45fb-435f-886d-9e6dee3a85ac.png" width="45%" />
 
 - Demo - [Click Here](https://porinky0424.github.io/reversi-bot-front/)
+- TS files run wasm functions to calculate AI's thought, which are compiled from Rust code. See [reversi-bot-front](https://github.com/porinky0424/reversi-bot-front) for UI.
 
 ## Built with
 
@@ -16,8 +17,6 @@ UI is built with:
 AI is built with:
 
 - [Rust and WebAssembly](https://rustwasm.github.io/docs/book/)
-
-JS files run wasm functions to calculate AI's thought, which are compiled from Rust code. See [reversi-bot-front](https://github.com/porinky0424/reversi-bot-front) for more details.
 
 ## To Update
 
