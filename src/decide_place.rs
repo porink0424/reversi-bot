@@ -2,13 +2,17 @@ use rand::seq::SliceRandom;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use crate::{
-    calc_legal_places::calc_legal_places, constants::EVAL_BY_POINT_TABLE_DEPTH, enums::EvalMethod,
-    put::put, search::negamax, structs::Board,
+    calc_legal_places::calc_legal_places,
+    constants::{EVAL_BY_POINT_TABLE_DEPTH, EVAL_NORMAL_DEPTH, EVAL_PERFECT_DEPTH, EVAL_WIN_DEPTH},
+    enums::EvalMethod,
+    put::put,
+    search::negamax,
+    structs::Board,
 };
 
 #[wasm_bindgen]
-pub fn decide_place(board: &Board, method: EvalMethod) -> u64 {
-    match method {
+pub fn decide_place(board: &Board, prop_method: EvalMethod) -> u64 {
+    match prop_method {
         EvalMethod::Random => {
             let legal_places = calc_legal_places(board);
             let mask = 1;
@@ -22,9 +26,30 @@ pub fn decide_place(board: &Board, method: EvalMethod) -> u64 {
             }
             return 0;
         }
-        EvalMethod::PointTable => {
-            let limit = EVAL_BY_POINT_TABLE_DEPTH;
-            let method = EvalMethod::PointTable;
+        _ => {
+            let limit;
+            let method;
+            match prop_method {
+                EvalMethod::PointTable => {
+                    limit = EVAL_BY_POINT_TABLE_DEPTH;
+                    method = EvalMethod::PointTable;
+                }
+                EvalMethod::Normal => {
+                    if (64 - board.put_stones_count) as i8 <= EVAL_WIN_DEPTH {
+                        if (64 - board.put_stones_count) as i8 <= EVAL_PERFECT_DEPTH {
+                            limit = EVAL_PERFECT_DEPTH;
+                            method = EvalMethod::Perfect;
+                        } else {
+                            limit = EVAL_WIN_DEPTH;
+                            method = EvalMethod::Win;
+                        }
+                    } else {
+                        limit = EVAL_NORMAL_DEPTH;
+                        method = EvalMethod::Normal;
+                    }
+                }
+                _ => unreachable!(),
+            };
             let mut place: u64 = 0x0000000000000001;
             let mut max_eval: i32 = std::i32::MIN;
             let mut max_eval_place: u64 = place;
@@ -48,9 +73,6 @@ pub fn decide_place(board: &Board, method: EvalMethod) -> u64 {
             }
             return max_eval_place;
         }
-        EvalMethod::Normal => todo!(),
-        EvalMethod::Perfect => todo!(),
-        EvalMethod::WinOrLose => todo!(),
     }
 }
 

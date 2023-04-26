@@ -13,6 +13,6 @@ pub enum EvalMethod {
     Random,
     PointTable, // using point table, mainly for debug
     Normal,
-    WinOrLose, // complete search
-    Perfect,   // complete search (also care about the number of pieces)
+    Win,     // complete search
+    Perfect, // complete search (also care about the number of pieces)
 }
