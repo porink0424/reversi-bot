@@ -42,7 +42,7 @@ yarn; yarn start
 
 to start the development server.
 
-## How We Built
+## How I Built
 
 By running:
 
@@ -50,22 +50,22 @@ By running:
 cargo generate --git https://github.com/rustwasm/wasm-pack-template
 ```
 
-we created a new Rust project with wasm-pack template. Here we deleted `.git` and reinitialized it.
+I created a new Rust project with wasm-pack template. Here I deleted `.git` and reinitialized it.
 
-At the time we implemented some logics in Rust, we ran:
+At the time I implemented some logics in Rust, I ran:
 
 ```
 wasm-pack build --target web
 ```
 
-to compile Rust code into wasm with `build_and_copy.sh`. Then, we copied `./pkg` to `./www/src/pkg`. Now we can use wasm functions in JS. It is a bit tricky, but it works.
+to compile Rust code into wasm with `build_and_copy.sh`. Then, I copied `./pkg` to `./www/src/pkg`. Now I can use wasm functions in JS. It is a bit tricky, but it works.
 
-## What We Left
+## What I Left
 
 - Improve UI (e.g. durable with the change of the window size, button sizes, etc.)
 - Use multithreading in Rust
 
-## What We Struggled With
+## What I Struggled With
 
 - When we use `rand` crate in wasm, we need to specify the `features` in `Cargo.toml` like:
 
