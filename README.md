@@ -18,17 +18,23 @@ bot is built with:
 
 - [Rust and WebAssembly](https://rustwasm.github.io/docs/book/)
 
-## To Update
+## Getting Started
 
-When you update something in `./src` in this repository, you need to run:
+```
+git clone git@github.com:porinky0424/reversi-bot.git
+cd reversi-bot
+git clone git@github.com:porinky0424/reversi-bot-front.git www
+```
+
+When you update something in `/src` in this repository, you need to run:
 
 ```
 sh build_and_copy.sh
 ```
 
-to update `./www/src/pkg`.
+to update `/www/src/pkg`.
 
-And then, you can run in `./www`:
+And then, you can run in `/www`:
 
 ```
 yarn; yarn start
