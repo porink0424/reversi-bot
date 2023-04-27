@@ -6,6 +6,7 @@
 
 - Demo - [Click Here](https://porinky0424.github.io/reversi-bot-front/)
 - TS files run wasm functions to calculate bot's thought, which are compiled from Rust code. See [reversi-bot-front](https://github.com/porinky0424/reversi-bot-front) for UI.
+- When getting closer to the end of the game, the bot will read all the possible moves, choose the best one, and give you a prediction of the result, which is definitely correct if the prediction says you will lose. You have to give up 🥲
 
 ## Built with
 
@@ -64,6 +65,7 @@ to compile Rust code into wasm with `build_and_copy.sh`. Then, I copied `./pkg` 
 
 - Improve UI (e.g. durable with the change of the window size, button sizes, etc.)
 - Use multithreading in Rust
+  - We cannon use `std::thread` in wasm, so we need to use `web_sys::Worker` or something like that...
 
 ## What I Struggled With
 
