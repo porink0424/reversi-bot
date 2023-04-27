@@ -2,9 +2,10 @@
 
 **Play "Reversi" with a simple, but reasonably strong bot!**
 
+![https://porinky0424.github.io/reversi-bot-front/](https://img.shields.io/badge/demo-click%20here-brightgreen.svg)
+
 <img align="right" src="https://user-images.githubusercontent.com/83964523/233449005-5fb8e0bb-45fb-435f-886d-9e6dee3a85ac.png" width="45%" />
 
-- Demo - [Click Here](https://porinky0424.github.io/reversi-bot-front/)
 - TS files run wasm functions to calculate bot's thought, which are compiled from Rust code. See [reversi-bot-front](https://github.com/porinky0424/reversi-bot-front) for UI.
 - When getting closer to the end of the game, the bot will read all the possible moves, choose the best one, and give you a prediction of the result, which is definitely correct if the prediction says you will lose. You have to give up 🥲
 
