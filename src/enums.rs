@@ -16,3 +16,12 @@ pub enum EvalMethod {
     Win,     // complete search
     Perfect, // complete search (also care about the number of pieces)
 }
+
+#[wasm_bindgen]
+#[derive(PartialEq, Eq, Clone, Copy, Debug)]
+pub enum WinPrediction {
+    WIN,
+    LOSE,
+    DRAW,
+    UNKNOWN,
+}
