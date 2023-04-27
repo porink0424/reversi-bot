@@ -2,7 +2,7 @@
 
 **Play "Reversi" with a simple, but reasonably strong bot!**
 
-![https://porinky0424.github.io/reversi-bot-front/](https://img.shields.io/badge/demo-click%20here-brightgreen.svg)
+### DEMO - [Click here](https://porinky0424.github.io/reversi-bot-front/)
 
 <img align="right" src="https://user-images.githubusercontent.com/83964523/233449005-5fb8e0bb-45fb-435f-886d-9e6dee3a85ac.png" width="45%" />
 
