@@ -4,6 +4,7 @@ use crate::{
         WEIGHT_CMOVE, WEIGHT_MOBILITY, WEIGHT_OPENNESS, WEIGHT_STABLE, WEIGHT_WING, WEIGHT_XMOVE,
     },
     get_my_and_opponent_stones::get_my_and_opponent_stones,
+    has_game_ended::has_game_ended,
     structs::Board,
 };
 
@@ -299,11 +300,14 @@ pub fn evaluate_normal(board: Board) -> i32 {
     let (my_stones, opponent_stones) = get_my_and_opponent_stones(&board);
     let empty_places = !(my_stones | opponent_stones);
 
-    if my_stones.count_ones() == 0 as u32 {
-        return -100000000;
-    }
-    if opponent_stones.count_ones() == 0 as u32 {
-        return 100000000;
+    if has_game_ended(&board) {
+        if my_stones.count_ones() > opponent_stones.count_ones() {
+            return 100000000;
+        } else if my_stones.count_ones() < opponent_stones.count_ones() {
+            return -100000000;
+        } else {
+            return 0;
+        }
     }
 
     let my_cmove = calculate_cmove(my_stones, empty_places);
